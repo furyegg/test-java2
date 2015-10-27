@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.canvas.Canvas?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.lombardrisk.ocelot.efc.controller.ScaleController">
+	<stylesheets>
+		<URL value="@../css/main.css"/>
+	</stylesheets>
+
+	<HBox>
+		<Button text="Start" onAction="#start"/>
+		<Button text="Pause" onAction="#pause"/>
+		<Button text="End" onAction="#end"/>
+	</HBox>
+	<HBox>
+		<VBox fx:id="box1" styleClass="boxBorder1" prefWidth="200" prefHeight="200">
+			<Label text="Pane 1"/>
+			<Label text="Pane 1"/>
+			<Label text="Pane 1"/>
+		</VBox>
+		<VBox fx:id="box3" styleClass="boxBorder2" prefWidth="800" prefHeight="200">
+			<Label text="Pane 2"/>
+			<Label text="Pane 2"/>
+			<Label text="Pane 2"/>
+		</VBox>
+	</HBox>
+	<AnchorPane fx:id="msgbar" prefHeight="300">
+		<VBox fx:id="box2" styleClass="boxBorder3" prefWidth="200" prefHeight="200" layoutX="200"
+			  AnchorPane.topAnchor="0">
+			<Label text="Pane 3"/>
+			<Label text="Pane 3"/>
+			<Label text="Pane 3"/>
+		</VBox>
+	</AnchorPane>
+</VBox>

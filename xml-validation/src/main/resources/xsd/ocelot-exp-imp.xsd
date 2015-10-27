@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.lombardrisk.com/message/ocelot-exp-imp" xmlns:m="http://www.lombardrisk.com/message" targetNamespace="http://www.lombardrisk.com/message/ocelot-exp-imp" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.lombardrisk.com/message" schemaLocation="lrm-messaging.xsd"/>
+	<xsd:simpleType name="ExportType">
+		<xsd:restriction base="m:Max30String">
+			<xsd:enumeration value="XBRL"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ExportSubType">
+		<xsd:restriction base="m:Max30String">
+			<xsd:enumeration value="ECR"/>
+			<xsd:enumeration value="BI"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CompressionOption">
+		<xsd:restriction base="m:Max30String">
+			<xsd:enumeration value="NONE"/>
+			<xsd:enumeration value="GZ"/>
+			<xsd:enumeration value="ZIP"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ProductConfigPrefix">
+		<xsd:restriction base="m:Max30String"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="ProductConfigVersion">
+		<xsd:restriction base="m:Max30String">
+			<xsd:pattern value="([0-9\.])+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ProductConfiguration">
+		<xsd:sequence>
+			<xsd:element name="prefix" type="tns:ProductConfigPrefix">
+				<xsd:annotation>
+					<xsd:documentation>The prefix of the product configuration to use, derived from the product configuration's manifest.xml</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="implementationVersion" type="tns:ProductConfigVersion" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The implementation version of the product configuration to use, to distinguish between multiple active product configurations with the same prefix.  If this element not supplied, must be single active product configurations with the specified product configuration prefix</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="ModuleCode">
+		<xsd:restriction base="m:Max100String"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="FrameworkCode">
+		<xsd:restriction base="m:Max100String"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TaxonomyVersion">
+		<xsd:restriction base="m:Max100String"/>
+	</xsd:simpleType>
+	<xsd:complexType name="Taxonomy">
+		<xsd:choice>
+			<xsd:element name="frameworkAndAsOfDate" type="tns:FrameworkAndAsOfDate">
+				<xsd:annotation>
+					<xsd:documentation>Idenfies the taxonomy by framework code and "as of" date</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="frameworkAndVersion" type="tns:FrameworkAndVersion">
+				<xsd:annotation>
+					<xsd:documentation>Idenfies the taxonomy by framework code and taxonomy version</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="FrameworkAndAsOfDate">
+		<xsd:sequence>
+			<xsd:element name="frameworkCode" type="tns:FrameworkCode">
+				<xsd:annotation>
+					<xsd:documentation>The framework code of the taxonomy's framework, eg. COREP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="asOfDate" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>A taxonomy will be selected for the framework where this date lies between the taxonomy's fromDate and toDate</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FrameworkAndVersion">
+		<xsd:sequence>
+			<xsd:element name="frameworkCode" type="tns:FrameworkCode">
+				<xsd:annotation>
+					<xsd:documentation>The framework code of the taxonomy's framework, eg. COREP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="taxonomyVersion" type="tns:TaxonomyVersion">
+				<xsd:annotation>
+					<xsd:documentation>A taxonomy will be selected for the framework with this version number, eg. 2.0.2</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExplicitDataPointValue">
+		<xsd:choice>
+			<xsd:element name="metricMemberId" type="xsd:long"/>
+		</xsd:choice>
+		<xsd:attribute name="dataPointId" type="xsd:long"/>
+	</xsd:complexType>
+	<xsd:complexType name="ExplicitDataPointValues">
+		<xsd:sequence>
+			<xsd:element name="explicitDataPointValue" type="tns:ExplicitDataPointValue" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="EcrFilingIndicator">
+		<xsd:restriction base="m:Max50String"/>
+	</xsd:simpleType>
+	<xsd:complexType name="EcrFilingIndicators">
+		<xsd:sequence>
+			<xsd:element name="filingIndicator" type="tns:EcrFilingIndicator" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EcrExportParameters">
+		<xsd:sequence>
+			<xsd:element name="fixSchemaUri" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>If specified and true, will adjust the module entry point URI to fix bug in the EBA's DPM 2.0.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="filingIndicators" type="tns:EcrFilingIndicators"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:attributeGroup name="MultiplierAndDecimals">
+		<xsd:attribute name="multiplier" type="xsd:int">
+			<xsd:annotation>
+				<xsd:documentation>Form instance values will be multiplied by this in the XBRL</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="decimals" type="xsd:int">
+			<xsd:annotation>
+				<xsd:documentation>Each fact will be reported as precise to this @decimals in the XBRL</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+	<xsd:complexType name="MultiplierAndDecimalsForType">
+		<xsd:attributeGroup ref="tns:MultiplierAndDecimals"/>
+	</xsd:complexType>
+	<xsd:complexType name="MultiplierAndDecimalsForTypes">
+		<xsd:sequence>
+			<xsd:element name="monetary" type="tns:MultiplierAndDecimalsForType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Default value if unspecified: multiplier 1000, decimals 3</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="integer" type="tns:MultiplierAndDecimalsForType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Default value if unspecified: multiplier 1, decimals 0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="percentage" type="tns:MultiplierAndDecimalsForType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Default value if unspecified: multiplier 0.01, decimals -4</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="XbrlExportParameters">
+		<xsd:sequence>
+			<xsd:element name="taxonomy" type="tns:Taxonomy">
+				<xsd:annotation>
+					<xsd:documentation>Identifies the taxonomy in the DPM to generate XBRL for</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="moduleCode" type="tns:ModuleCode">
+				<xsd:annotation>
+					<xsd:documentation>Identifies the module (which implies the entry point) in the DPM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="currency" type="m:Max3UpperCase">
+				<xsd:annotation>
+					<xsd:documentation>All monetary facts will be reporting in unit of this currency</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="multiplierAndDecimalsForTypes" type="tns:MultiplierAndDecimalsForTypes" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Allow override of multiplier and declared precision from defaults</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="excludeZeroValueFacts" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Allow override of treatment of zero from defaults</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="explicitDataPointValues" type="tns:ExplicitDataPointValues" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>A list of explicit data points, not included in form instance data</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<!-- Other subtypes of XBRL export would put parameter specific to them here -->
+				<xsd:element name="ecrExportParameters" type="tns:EcrExportParameters">
+					<xsd:annotation>
+						<xsd:documentation>Extra parameters specific only for generating XBRL for the EBA</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExportParameters">
+		<xsd:choice>
+			<xsd:element name="xbrlExportParameters" type="tns:XbrlExportParameters"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:simpleType name="ToolsetFormVarName">
+		<xsd:restriction base="m:Max50String"/>
+	</xsd:simpleType>
+	<xsd:complexType name="ToolsetFormVariableIndicator">
+		<xsd:simpleContent>
+			<xsd:extension base="m:Max1000String">
+				<xsd:attribute name="level" type="m:LevelText"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="ToolsetFormInstanceId">
+		<xsd:sequence>
+			<xsd:element name="returnId" type="xsd:decimal">
+				<xsd:annotation>
+					<xsd:documentation>The Toolset ReturnId of the form instance</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="entityId" type="xsd:decimal">
+				<xsd:annotation>
+					<xsd:documentation>The Toolset EntityId of the form instance</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="processDate" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>The Toolset process date (or "as of" date) of the form instance</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FormInstanceIds">
+		<xsd:choice>
+			<xsd:element name="toolsetFormInstanceId" type="tns:ToolsetFormInstanceId" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>A form instance ID for a form instance in Toolset</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- other kinds of form instance ID would go here. -->
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="FileExportDestination">
+		<xsd:sequence>
+			<xsd:element name="filename" type="m:Max1000String">
+				<xsd:annotation>
+					<xsd:documentation>Name of file to generate XBRL to</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="compressOutput" type="tns:CompressionOption" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Allow compression of XBRL output</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExportDestination">
+		<xsd:choice>
+			<xsd:element name="file" type="tns:FileExportDestination">
+				<xsd:annotation>
+					<xsd:documentation>Export to a file on filesystem</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="FormInstanceExportRequest">
+		<xsd:complexContent>
+			<xsd:extension base="m:MessagePayload.Request">
+				<xsd:sequence>
+					<xsd:element name="exportType" type="tns:ExportType">
+						<xsd:annotation>
+							<xsd:documentation>The type of form instance export, this is expected to align with the output format, eg. XBRL, XLSX</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="exportSubType" type="tns:ExportSubType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>A further qualifier for the form instance exportType</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="productConfiguration" type="tns:ProductConfiguration">
+						<xsd:annotation>
+							<xsd:documentation>Must uniquely specify a Product Configuration in Ocelot</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="exportParameters" type="tns:ExportParameters" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Parameters for the export request; these will differ depending on the exportType</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="formInstanceIds" type="tns:FormInstanceIds">
+						<xsd:annotation>
+							<xsd:documentation>A list of identifier for form instances to export</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="exportDestination" type="tns:ExportDestination">
+						<xsd:annotation>
+							<xsd:documentation>Parameters where to export form instances to</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="formInstanceExportRequest" type="tns:FormInstanceExportRequest" substitutionGroup="m:payload"/>
+	<xsd:complexType name="FormInstanceExportPostiveReply">
+		<xsd:complexContent>
+			<xsd:extension base="m:MessagePayload.PostiveReply">
+				<xsd:sequence/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="formInstanceExportReplySuccess" type="tns:FormInstanceExportPostiveReply" substitutionGroup="m:payload"/>
+	<xsd:complexType name="FormInstanceExportNegativeReply">
+		<xsd:complexContent>
+			<xsd:extension base="m:MessagePayload.NegativeReply">
+				<xsd:sequence/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="formInstanceExportReplyFailure" type="tns:FormInstanceExportNegativeReply" substitutionGroup="m:payload"/>
+</xsd:schema>

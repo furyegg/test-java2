@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bk:books xmlns:bk="http://www.test.com/book" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.test.com/book ./book.xsd">
+	<bk:book id="1">
+		<bk:name>Name1</bk:name>
+		<bk:author>author1</bk:author>
+	</bk:book>
+	<bk:book id="2">
+		<bk:name>Name2</bk:name>
+		<bk:author>author2</bk:author>
+	</bk:book>
+	<bk:book id="3">
+		<bk:name>Name3</bk:name>
+		<bk:author>author3</bk:author>
+	</bk:book>
+</bk:books>

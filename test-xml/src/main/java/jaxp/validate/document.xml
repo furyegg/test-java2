@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<simple:Root
+   xmlns:simple="http://ananas.org/2003/tips/validate"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://ananas.org/2003/tips/validate simple.xsd">
+      Document content comes here.
+</simple:Root>

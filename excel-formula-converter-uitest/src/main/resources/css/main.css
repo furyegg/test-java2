@@ -1,0 +1,27 @@
+#headBar {
+    -fx-padding: 0px;
+}
+
+#appName {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+.boxBorder1 {
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: black;
+}
+
+.boxBorder2 {
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: red;
+}
+
+.boxBorder3 {
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: blue;
+}

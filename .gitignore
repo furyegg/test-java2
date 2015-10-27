@@ -1,0 +1,12 @@
+*.project
+*.iml
+.idea
+*.svn-base
+.settings
+restful
+classes
+target
+*.classpath
+META-INF
+web.xml
+index.html

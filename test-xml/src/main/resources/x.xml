@@ -1,0 +1,17 @@
+<feed xmlns="urn:jboss:domain:1.2">
+	<author>
+		<firstName>f</firstName>
+		<lastName>l</lastName>
+	</author>
+	<date>2011-01-02 </date>
+	<entry xmlns="urn:jboss:domain:logging:1.1">
+		<id>1</id>
+		<Name>aaa</Name>
+		<Content>XXX</Content>
+	</entry>
+	<entry xmlns="urn:jboss:domain:logging:1.1">
+		<id>2</id>
+		<Name>bbb</Name>
+		<Content>YYY</Content>
+	</entry>
+</feed>

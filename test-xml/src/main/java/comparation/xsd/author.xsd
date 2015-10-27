@@ -1,0 +1,14 @@
+<xs:schema targetNamespace="http://www.test.com/author" xmlns="http://www.test.com/author" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+	<xs:element name="author" type="authorType" />
+
+	<xs:complexType name="authorType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="country" type="xs:QName" />
+			<xs:element name="age" type="xs:positiveInteger" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<VBox xmlns:fx="http://javafx.com/fxml">
+	<stylesheets>
+		<URL value="@../css/main.css"/>
+	</stylesheets>
+
+	<HBox id="headBar">
+		<Label id="appName" text="Excel Formula Converter"/>
+
+		<VBox maxWidth="200" styleClass="boxBorder1">
+			<Button text="Open"/>
+			<Button text="Update"/>
+		</VBox>
+		<VBox>
+			<Label text="File: FIEE031.xlt"/>
+			<Label text="Path: D:/FED/excel template/"/>
+			<Label text="Last modify: 2014-11-11 12:03:20"/>
+		</VBox>
+	</HBox>
+
+	<Label id="msgContent" text="message info"/>
+
+	<HBox>
+
+	</HBox>
+
+	<Accordion>
+		<panes>
+			<TitledPane text="Formula">
+				<TableView>
+					<columns>
+						<TableColumn text="First Name" prefWidth="100">
+							<cellValueFactory>
+								<PropertyValueFactory property="firstName"/>
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn text="Last Name" prefWidth="100">
+							<cellValueFactory>
+								<PropertyValueFactory property="lastName"/>
+							</cellValueFactory>
+						</TableColumn>
+						<TableColumn text="Email Address">
+							<cellValueFactory>
+								<PropertyValueFactory property="email"/>
+							</cellValueFactory>
+						</TableColumn>
+					</columns>
+				</TableView>
+			</TitledPane>
+			<TitledPane text="Function Mapping">
+				<Label text="Function Mapping Area"/>
+			</TitledPane>
+		</panes>
+	</Accordion>
+</VBox>

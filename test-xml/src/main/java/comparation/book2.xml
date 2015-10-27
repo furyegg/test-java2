@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bk:books xmlns:bk="http://www.test.com/book" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:link="http://www.xbrl.org/2003/linkbase"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:au="http://www.test.com/author">
+
+	<link:schemaRef xlink:type="simple" xlink:href="D:/java/jaxp/xsd/book2.xsd" />
+
+	<bk:book id="1">
+		<bk:name>Name1</bk:name>
+		<au:author>
+			<au:name>Jack</au:name>
+			<au:age>100</au:age>
+		</au:author>
+	</bk:book>
+	<bk:book id="2">
+		<bk:name>Name2</bk:name>
+		<au:author>
+			<au:name>Bruce</au:name>
+			<au:age>3</au:age>
+		</au:author>
+	</bk:book>
+	<bk:book id="3">
+		<bk:name>Name3</bk:name>
+		<au:author>
+			<au:name>Smith</au:name>
+			<au:age>30</au:age>
+		</au:author>
+	</bk:book>
+
+</bk:books>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Test JSF</title>
+</head>
+
+<body>
+	<h1>test jsf</h1>
+	<h:form id="form1">
+		<h:outputLabel value="#{mainBean.msg}" />
+		<p:selectOneRadio id="configPackageRadio" value="#{mainBean.selectedConfigPakcage}">
+			<f:selectItems value="#{mainBean.configPackages}"/>
+			<p:ajax listener="#{mainBean.change}" process="@this" update="selectedConfigPakcage"/>
+		</p:selectOneRadio>
+		<p:outputLabel id="selectedConfigPakcage" value="#{mainBean.selectedConfigPakcage}" />
+		<p:commandButton value="Change" action="#{mainBean.change}" update="selectedConfigPakcage,configPackageRadio"/>
+	</h:form>
+
+	<h:form id="form2">
+		<p:commandButton value="Show" action="#{mainBean.show}" update="configPackageLabel"/>
+		<h:outputLabel id="configPackageLabel" value="#{mainBean.storedConfigPakcage}" />
+	</h:form>
+</body>
+</html>

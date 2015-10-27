@@ -1,0 +1,1 @@
+insert test values ('flyway1');

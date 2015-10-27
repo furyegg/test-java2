@@ -1,0 +1,1 @@
+for /r %f in (.) do rd /s /q %f\target

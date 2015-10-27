@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<xsd:schema
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="http://ananas.org/2003/tips/validate">
+	<xsd:element name="Root" type="xsd:string"/>
+</xsd:schema>

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<server xmlns="urn:jboss:domain:1.2">
+	<subsystem xmlns="urn:jboss:domain:datasources:1.0">
+		<datasources>
+			<xa-datasource jta="true" jndi-name="java:/OcelotDS-Oracle123213" pool-name="OcelotDS-Oracle" enabled="true" use-java-context="true"
+				use-ccm="true">
+				<xa-datasource-property name="URL">
+					jdbc:oracle:thin:@172.20.20.82:1521:tava112
+				</xa-datasource-property>
+				<security>
+					<security-domain>secdomain-ocelot</security-domain>
+				</security>
+				<driver>oracle</driver>
+				<xa-pool>
+					<min-pool-size>5</min-pool-size>
+					<max-pool-size>40</max-pool-size>
+					<prefill>true</prefill>
+					<is-same-rm-override>false</is-same-rm-override>
+					<no-tx-separate-pools>true</no-tx-separate-pools>
+				</xa-pool>
+				<validation>
+					<valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker" />
+					<stale-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleStaleConnectionChecker" />
+					<exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter" />
+				</validation>
+			</xa-datasource>
+			<xa-datasource jta="true" jndi-name="java:/OcelotDS-MSSQL" pool-name="OcelotDS-MSSQL" enabled="true" use-java-context="true" use-ccm="true">
+				<driver>JTDS</driver>
+				<xa-datasource-property name="ServerName">172.20.20.182
+				</xa-datasource-property>
+				<xa-datasource-property name="PortNumber">1433
+				</xa-datasource-property>
+				<xa-datasource-property name="DatabaseName">DGB1622_SYSTEM
+				</xa-datasource-property>
+				<xa-datasource-property name="Instance">ocelot
+				</xa-datasource-property>
+				<security>
+					<security-domain>encrypted-ds</security-domain>
+				</security>
+				<xa-pool>
+					<min-pool-size>5</min-pool-size>
+					<max-pool-size>40</max-pool-size>
+					<prefill>true</prefill>
+					<is-same-rm-override>false</is-same-rm-override>
+					<no-tx-separate-pools>true</no-tx-separate-pools>
+				</xa-pool>
+				<driver>JTDS</driver>
+				<validation>
+					<check-valid-connection-sql>select 1</check-valid-connection-sql>
+				</validation>
+			</xa-datasource>
+			<drivers>
+				<driver name="oracle" module="com.oracle.driver">
+					<driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+					<xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource
+					</xa-datasource-class>
+				</driver>
+				<driver name="JTDS" module="net.sourceforge.jtds">
+					<driver-class>net.sourceforge.jtds.jdbc.Driver</driver-class>
+					<xa-datasource-class>net.sourceforge.jtds.jdbcx.JtdsDataSource
+					</xa-datasource-class>
+				</driver>
+			</drivers>
+		</datasources>
+	</subsystem>
+	<subsystem xmlns="urn:jboss:domain:security:1.1">
+		<security-domains>
+			<security-domain name="secdomain-ocelot123" cache-type="default">
+				<authentication>
+					<login-module code="org.picketbox.datasource.security.SecureIdentityLoginModule" flag="required">
+						<module-option name="username" value="user123" />
+						<module-option name="password" value="password" />
+					</login-module>
+				</authentication>
+			</security-domain>
+		</security-domains>
+	</subsystem>
+</server>

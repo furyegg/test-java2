@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.lombardrisk.com/message" xsi:schemaLocation="http://www.lombardrisk.com/message lrm-messaging.xsd http://www.lombardrisk.com/message/ocelot-exp-imp ocelot-exp-imp.xsd">
+	<header>
+		<messageId>MSG_2999_20140610_42</messageId>
+		<senderSystemId>TOOLSETv5</senderSystemId>
+		<receiverServiceName>ocelot-exp-imp</receiverServiceName>
+		<correlationId>def1234567</correlationId>
+	</header>
+	<body>
+		<formInstanceExportRequest xmlns="http://www.lombardrisk.com/message/ocelot-exp-imp">
+			<exportType>XBRL</exportType>
+			<exportSubType>ECR</exportSubType>
+			<productConfiguration>
+				<prefix>ECR</prefix>
+				<implementationVersion>1</implementationVersion>
+			</productConfiguration>
+			<exportParameters>
+				<xbrlExportParameters>
+					<taxonomy>
+						<frameworkAndAsOfDate>
+							<frameworkCode>COREP</frameworkCode>
+							<asOfDate>2014-06-10</asOfDate>
+						</frameworkAndAsOfDate>
+					</taxonomy>
+					<moduleCode>COREP_LCR_Con</moduleCode>
+					<currency>GBP</currency>
+					<multiplierAndDecimalsForTypes>
+						<monetary decimals="3" multiplier="1000"/>
+					</multiplierAndDecimalsForTypes>
+					<excludeZeroValueFacts>false</excludeZeroValueFacts>
+					<explicitDataPointValues>
+						<explicitDataPointValue dataPointId="37969">
+							<metricMemberId>4009</metricMemberId>
+						</explicitDataPointValue>
+						<explicitDataPointValue dataPointId="31870">
+							<metricMemberId>4007</metricMemberId>
+						</explicitDataPointValue>
+					</explicitDataPointValues>
+					<ecrExportParameters>
+						<filingIndicators>
+							<filingIndicator>C_00.01</filingIndicator>
+							<filingIndicator>C_07.00</filingIndicator>
+							<filingIndicator>C_14.00</filingIndicator>
+							<filingIndicator>C_09.01</filingIndicator>
+							<filingIndicator>C_09.02</filingIndicator>
+						</filingIndicators>
+					</ecrExportParameters>
+				</xbrlExportParameters>
+			</exportParameters>
+			<formInstanceIds>
+				<toolsetFormInstanceId>
+					<returnId>360127</returnId>
+					<entityId>1</entityId>
+					<processDate>2014-06-10</processDate>
+				</toolsetFormInstanceId>
+				<toolsetFormInstanceId>
+					<returnId>360052</returnId>
+					<entityId>1</entityId>
+					<processDate>2014-06-10</processDate>
+				</toolsetFormInstanceId>
+				<toolsetFormInstanceId>
+					<returnId>360131</returnId>
+					<entityId>1</entityId>
+					<processDate>2014-06-10</processDate>
+				</toolsetFormInstanceId>
+			</formInstanceIds>
+			<exportDestination>
+				<file>
+					<filename>C:\xbrl\3_2999_20140610.xbrl</filename>
+					<compressOutput>ZIP</compressOutput>
+				</file>
+			</exportDestination>
+		</formInstanceExportRequest>
+	</body>
+</message>

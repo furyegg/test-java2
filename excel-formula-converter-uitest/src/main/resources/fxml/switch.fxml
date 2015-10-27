@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.lombardrisk.ocelot.efc.component.pane.BlockScalePane?>
+<?import com.lombardrisk.ocelot.efc.component.pane.HScalePane?>
+<?import com.lombardrisk.ocelot.efc.component.pane.SwitchPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+	  fx:controller="com.lombardrisk.ocelot.efc.controller.SwitchController">
+	<stylesheets>
+		<URL value="@../css/main.css"/>
+	</stylesheets>
+
+	<SwitchPane fx:id="swithPane">
+		<ImageView fx:id="img1">
+			<Image url="@../images/home.png"/>
+		</ImageView>
+		<ImageView fx:id="img2">
+			<Image url="@../images/like.png"/>
+		</ImageView>
+	</SwitchPane>
+
+	<HBox alignment="CENTER">
+		<Button text="Switch" onAction="#handleSwith"/>
+	</HBox>
+
+	<HScalePane fx:id="hScalePane">
+		<ImageView>
+			<Image url="@../images/home.png"/>
+		</ImageView>
+		<ImageView>
+			<Image url="@../images/like.png"/>
+		</ImageView>
+	</HScalePane>
+
+	<HBox alignment="CENTER">
+		<Button text="Active Left" onAction="#showLeft"/>
+		<Button text="Active Right" onAction="#showRight"/>
+	</HBox>
+
+	<BlockScalePane fx:id="blockScalePane" prefHeight="500">
+		<ImageView>
+			<Image url="@../images/home.png"/>
+		</ImageView>
+		<ImageView>
+			<Image url="@../images/like.png"/>
+		</ImageView>
+		<ImageView>
+			<Image url="@../images/scissor.png"/>
+		</ImageView>
+	</BlockScalePane>
+
+	<HBox alignment="CENTER">
+		<Button text="Active First" onAction="#showFirst"/>
+		<Button text="Active Second" onAction="#showSecond"/>
+		<Button text="Active Third" onAction="#showThird"/>
+	</HBox>
+
+</VBox>

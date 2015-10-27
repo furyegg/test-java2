@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.lombardrisk.com/message" targetNamespace="http://www.lombardrisk.com/message" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:simpleType name="Max1000String">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max100String">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max250String">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="250"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max50String">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max30String">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max20String">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max10String">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max3String">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max3UpperCase">
+		<xsd:restriction base="tns:Max30String">
+			<xsd:pattern value="[A-Z]{0,3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Max10UpperCase">
+		<xsd:restriction base="tns:Max10String">
+			<xsd:pattern value="[A-Z]{0,10}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Identifer5To30">
+		<xsd:restriction base="tns:Max30String">
+			<xsd:pattern value="([A-Za-z0-9_\-]){5,30}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Identifer10To30">
+		<xsd:restriction base="tns:Max30String">
+			<xsd:pattern value="([A-Za-z0-9_\-]){10,30}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="UnprocessedAny">
+		<xsd:sequence>
+			<xsd:any processContents="skip"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="MessageHeader.Base">
+		<xsd:sequence>
+			<xsd:element name="messageId" type="tns:Identifer10To30"/>
+			<xsd:element name="senderSystemId" type="tns:Identifer5To30"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="MessageHeaderDetail.Request">
+		<xsd:sequence>
+			<xsd:element name="receiverServiceName" type="tns:Max30String"/>
+			<xsd:element name="correlationId" type="tns:Identifer10To30"/>
+			<xsd:element name="idempotentRequest" type="xsd:boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="MessageHeaderDetail.Reply">
+		<xsd:sequence>
+			<xsd:element name="correlationId" type="tns:Identifer10To30"/>
+			<xsd:element name="requesterSystemId" type="tns:Identifer5To30"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="MessageHeaderDetail.Broadcast">
+		<xsd:sequence/>
+	</xsd:group>
+	<xsd:complexType name="MessageHeader">
+		<xsd:sequence>
+			<xsd:group ref="tns:MessageHeader.Base"/>
+			<xsd:choice>
+				<xsd:group ref="tns:MessageHeaderDetail.Request"/>
+				<xsd:group ref="tns:MessageHeaderDetail.Reply"/>
+				<xsd:group ref="tns:MessageHeaderDetail.Broadcast"/>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="header" type="tns:MessageHeader"/>
+	<xsd:complexType name="MessagePayload" abstract="true">
+		<xsd:sequence/>
+	</xsd:complexType>
+	<xsd:complexType name="MessagePayload.Request" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="tns:MessagePayload"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:simpleType name="ErrorLevelText">
+		<xsd:restriction base="tns:Max10UpperCase">
+			<xsd:enumeration value="ERROR"/>
+			<xsd:enumeration value="SEVERE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NotErrorLevelText">
+		<xsd:restriction base="tns:Max10UpperCase">
+			<xsd:enumeration value="INFO"/>
+			<xsd:enumeration value="WARNING"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="LevelText">
+		<xsd:union memberTypes="tns:ErrorLevelText tns:NotErrorLevelText"/>
+	</xsd:simpleType>
+	<xsd:complexType name="NotErrorProcessLogEntry">
+		<xsd:simpleContent>
+			<xsd:extension base="tns:Max1000String">
+				<xsd:attribute name="level" type="tns:NotErrorLevelText"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessLogEntry">
+		<xsd:simpleContent>
+			<xsd:extension base="tns:Max1000String">
+				<xsd:attribute name="level" type="tns:LevelText"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="NotErrorProcessLog">
+		<xsd:sequence>
+			<xsd:element name="logEntry" type="tns:NotErrorProcessLogEntry" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessLog">
+		<xsd:sequence>
+			<xsd:element name="logEntry" type="tns:ProcessLogEntry" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MessagePayload.PostiveReply" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="tns:MessagePayload">
+				<xsd:sequence>
+					<xsd:element name="originalRequest" type="tns:MessagePayload.Request"/>
+					<xsd:element name="processLog" type="tns:NotErrorProcessLog"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="MessagePayload.NegativeReply" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="tns:MessagePayload">
+				<xsd:sequence>
+					<xsd:element name="originalRequest" type="tns:UnprocessedAny"/>
+					<xsd:element name="processLog" type="tns:ProcessLog"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="MessagePayload.Broadcast" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="tns:MessagePayload"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="payload" type="tns:MessagePayload" abstract="true"/>
+	<xsd:complexType name="MessageBody">
+		<xsd:sequence>
+			<xsd:element ref="tns:payload"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="body" type="tns:MessageBody"/>
+	<xsd:complexType name="Message">
+		<xsd:sequence>
+			<xsd:element ref="tns:header"/>
+			<xsd:element ref="tns:body"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="message" type="tns:Message"/>
+</xsd:schema>
