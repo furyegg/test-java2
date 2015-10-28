@@ -24,8 +24,8 @@ public class UserService2 {
 		return userMapper.getUserById(userId);
 	}
 
-	public User updateUser(User user) {
+	public void updateUser(User user) {
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-		return userMapper.getUserById(user.getUserId());
+		userMapper.updateUser(user);
 	}
 }

@@ -33,4 +33,8 @@
 			FROM USER U LEFT OUTER JOIN BLOG B ON U.BLOG_ID=B.BLOG_ID
 		</select>
 
+	<update id="updateUser" parameterType="User" >
+		update user set first_name = #{firstName}, last_name = #{lastName} where user_id=#{userId}
+	</update>
+
 </mapper>
