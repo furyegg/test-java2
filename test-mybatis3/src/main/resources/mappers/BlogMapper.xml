@@ -32,4 +32,9 @@
 		FROM blog b left outer join post p on b.blog_id=p.blog_id
 	</select>
 
+	<insert id="insertBlog" parameterType="Blog" useGeneratedKeys="true" keyColumn="blog_id">
+		insert into blog (blog_name, created_on)
+		values (#{blogName}, #{createdOn})
+	</insert>
+
 </mapper>

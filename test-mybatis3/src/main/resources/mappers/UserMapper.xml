@@ -19,7 +19,6 @@
 		</resultMap>
 
 		<select id="getUserById" parameterType="int" resultMap="UserResult">
-
 			SELECT
 			U.USER_ID, U.EMAIL_ID, U.PASSWORD, U.FIRST_NAME, U.LAST_NAME,
 			B.BLOG_ID, B.BLOG_NAME, B.CREATED_ON

@@ -12,4 +12,6 @@ public interface UserMapper {
 
 	public List<User> getAllUsers();
 
+	void updateUser(User user);
+
 }
