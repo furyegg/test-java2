@@ -13,6 +13,7 @@ import test.mybatis3.service.BlogService2;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/applicationContext.xml")
@@ -26,7 +27,7 @@ public class SpringBlogServiceTest {
 		Blog blog = blogService.getBlogById(1);
 		Assert.assertNotNull(blog);
 		System.out.println(blog);
-		List<Post> posts = blog.getPosts();
+		Set<Post> posts = blog.getPosts();
 		for (Post post : posts) {
 			System.out.println(post);
 		}

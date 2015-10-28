@@ -20,7 +20,7 @@ public class SpringUserServiceTest {
 
 	@Test
 	public void testGetUserById() {
-		User user = userService.getUserById(1);
+		User user = userService.getUserById(2);
 		Assert.assertNotNull(user);
 		System.out.println(user);
 		System.out.println(user.getBlog());

@@ -6,6 +6,7 @@ import test.mybatis3.model.Blog;
 import test.mybatis3.model.Post;
 
 import java.util.List;
+import java.util.Set;
 
 public class BlogService {
 
@@ -15,7 +16,7 @@ public class BlogService {
 			BlogMapper blogMapper = sqlSession.getMapper(BlogMapper.class);
 			Blog blog = blogMapper.getBlogById(1);
 			System.out.println(blog);
-			List<Post> posts = blog.getPosts();
+			Set<Post> posts = blog.getPosts();
 			for (Post post : posts) {
 				System.out.println(post);
 			}

@@ -2,14 +2,16 @@ package test.mybatis3.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Blog {
 
 	private Integer blogId;
 	private String blogName;
 	private Date createdOn;
-	private List<Post> posts = new ArrayList<Post>();
+	private Set<Post> posts = new HashSet<Post>();
 
 	@Override
 	public String toString() {
@@ -41,11 +43,11 @@ public class Blog {
 		this.createdOn = createdOn;
 	}
 
-	public List<Post> getPosts() {
+	public Set<Post> getPosts() {
 		return posts;
 	}
 
-	public void setPosts(List<Post> posts) {
+	public void setPosts(Set<Post> posts) {
 		this.posts = posts;
 	}
 }
