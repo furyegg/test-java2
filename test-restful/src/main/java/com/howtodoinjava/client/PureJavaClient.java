@@ -18,8 +18,12 @@ import java.net.URL;
  */
 public class PureJavaClient {
 	public static void main(String[] args) {
+		put();
+	}
+
+	private static void get() {
 		try {
-			URL url = new URL("http://localhost:8080/restful/user-management/users/10");
+			URL url = new URL("http://localhost:8080/restful/user-management/user/KyleLi");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/xml");
@@ -46,6 +50,38 @@ public class PureJavaClient {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void put() {
+		try {
+			URL url = new URL("http://localhost:8080/restful/user-management/user/KyleLi");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("PUT");
+			conn.setRequestProperty("Accept", "text/plain");
+
+			int responseCode = conn.getResponseCode();
+			if (responseCode != 200) {
+				throw new RuntimeException("Failed : HTTP error code : " + responseCode);
+			}
+
+			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+			String apiOutput = br.readLine();
+			System.out.println(apiOutput);
+			conn.disconnect();
+
+//			JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
+//			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+//			User user = (User) jaxbUnmarshaller.unmarshal(new StringReader(apiOutput));
+//
+//			System.out.println(user.getId());
+//			System.out.println(user.getFirstName());
+//			System.out.println(user.getLastName());
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
