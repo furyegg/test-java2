@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>
@@ -6,6 +7,7 @@
 </head>
 <body>
 <h1>Welcome!</h1>
-<a href="user-management/user/Steven">add</a>
+<a href="users/greeting/Steven">add</a>
+<a href="<c:url value="/logout"/>">Logout</a>
 </body>
 </html>
