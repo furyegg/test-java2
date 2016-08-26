@@ -10,7 +10,7 @@
 
 	<context:component-scan base-package="com.howtodoinjava"/>
 
-	<sec:http auto-config="true" use-expressions="false">
+	<!--<sec:http auto-config="true" use-expressions="false">
 		<sec:intercept-url pattern="/**" access="ROLE_USER"/>
 	</sec:http>
 
@@ -20,6 +20,6 @@
 
 	<sec:user-service id="userService">
 		<sec:user name="user" password="user" authorities="ROLE_USER"/>
-	</sec:user-service>
+	</sec:user-service>-->
 
 </beans>
