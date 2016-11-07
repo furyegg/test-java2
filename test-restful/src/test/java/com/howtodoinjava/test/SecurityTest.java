@@ -1,7 +1,7 @@
 package com.howtodoinjava.test;
 
 import com.howtodoinjava.model.Group;
-import com.howtodoinjava.model.User;
+import com.howtodoinjava.model.Order;
 import com.howtodoinjava.restful.UsersResource;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,6 +32,31 @@ import java.io.InputStreamReader;
 import java.util.Map;
 
 public class SecurityTest {
+
+	@Test
+	public void registerTest() {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("http://localhost:8080/uwifi/newuser");
+		Invocation.Builder request = target.request();
+		Response response = request.get();
+		System.out.println(response.getStatus());
+		System.out.println(response.readEntity(String.class));
+		response.getCookies().forEach((k, v) -> System.out.println(k + ": " + v + ", " + v.getValue()));
+	}
+
+	@Test
+	public void registerTest2() {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("http://localhost:8080/uwifi/user/Kyle/orders");
+		Invocation.Builder request = target.request();
+
+		Order order = new Order();
+		order.setOrderCode("AAAAADDDDDDDDFFFF");
+		Response response = request.post(Entity.entity(order, MediaType.APPLICATION_JSON_TYPE));
+		System.out.println(response.getStatus());
+		System.out.println(response.readEntity(String.class));
+		response.getCookies().forEach((k, v) -> System.out.println(k + ": " + v + ", " + v.getValue()));
+	}
 
 	@Test
 	public void loginTest() throws Exception {
@@ -90,21 +115,21 @@ public class SecurityTest {
 
 		// third
 		ResteasyClient client3 = new ResteasyClientBuilder().build().register(auth);
-//		ResteasyClient client3 = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target3 = client3.target("http://localhost:8080/restful/rest/");
 
 		UsersResource usersResource = target3.proxy(UsersResource.class);
-		Response response3 = usersResource.greeting("ABC");
-		System.out.println("Response3: " + response3.getStatus());
-		System.out.println(response3.readEntity(String.class).toString());
+//		Response response3 = usersResource.greeting("ABC");
+//		System.out.println("Response3: " + response3.getStatus());
+//		System.out.println(response3.readEntity(String.class).toString());
 
-		User user = new User("Kyle", "Li");
-		String updateRes = usersResource.updateUser(100001, user);
-		System.out.println(updateRes);
+		String abc = usersResource.addUser("abc");
+		System.out.println(abc);
 
-		User user2 = new User("Amanda", "DDD");
-		Integer id = usersResource.addUser(user2);
-		System.out.println(id);
+		String xyz = usersResource.updateUser("xyz");
+		System.out.println(xyz);
+//		System.out.println(response3.readEntity(String.class).toString());
+
+//		BasicAuthentication
 	}
 
 	@Test

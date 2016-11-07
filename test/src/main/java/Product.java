@@ -4,8 +4,8 @@ public class Product implements Serializable
 {
    public Product(String description, double price)
    {
-      this.description = description;
-      this.price = price;
+	   this.description = description;
+	   this.price = price;
    }
 
    public String getDescription()
@@ -18,10 +18,10 @@ public class Product implements Serializable
       return price;
    }
 
-   public Warehouse getLocation()
-   {
-      return location;
-   }
+	public Warehouse getLocation()
+	{
+		return location;
+	}
 
    public void setLocation(Warehouse location)
    {
