@@ -5,7 +5,6 @@ package variance;
  */
 public class Foo {
 	public <T extends A> String test(T t) {
-		Thread
 		return t.getClass().toString();
 	}
 }
