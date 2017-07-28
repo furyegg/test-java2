@@ -21,7 +21,7 @@ public class HttpClientApp {
 	public static void main(String[] args) throws IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPut put = new HttpPut("http://localhost:8080/put");
-		put.setHeader("Content-type", "application/json");
+		// put.setHeader("Content-type", "application/json");
 
 		Employee employee = new Employee("Kyle", 34);
 
