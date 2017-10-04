@@ -20,8 +20,9 @@ public class JoinTest {
 		
 		t1.start();
 		t2.start();
-//		t1.join();
-//		t2.join();
-		System.out.println("Finished...");
+		t1.join();
+		System.out.println("Finished 1...");
+		t2.join();
+		System.out.println("Finished 2...");
 	}
 }
