@@ -1,12 +1,13 @@
-*.project
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+.iml
 *.iml
 .idea
-*.svn-base
-.settings
-restful
-classes
+/*.iml
 target
-*.classpath
-META-INF
-web.xml
-index.html
+*.versionsBackup

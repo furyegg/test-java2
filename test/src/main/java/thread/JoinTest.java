@@ -20,6 +20,7 @@ public class JoinTest {
 		
 		t1.start();
 		t2.start();
+		t1.yield();
 		t1.join();
 		System.out.println("Finished 1...");
 		t2.join();
