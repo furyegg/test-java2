@@ -1,6 +1,5 @@
 package security.ClassLoaderTest;
 
-import java.io.*;
 import java.lang.reflect.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -35,7 +34,7 @@ class ClassLoaderFrame extends JFrame
 {
    public ClassLoaderFrame()
    {
-      setTitle("ClassLoaderTest");
+      setTitle("classloader");
       setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
       setLayout(new GridBagLayout());
       add(new JLabel("Class"), new GBC(0, 0).setAnchor(GBC.EAST));
