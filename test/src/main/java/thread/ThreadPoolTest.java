@@ -29,9 +29,6 @@ public class ThreadPoolTest {
 		);
 		ExecutorService executor = Executors.newWorkStealingPool(4);
 
-		tasks.forEach(t -> executor.execute(t));
-		Thread.sleep(2000);
-
 //		List<? extends Future<?>> futures = StreamEx.of(tasks).map(t -> executor.submit(t)).toList();
 //		futures.forEach(f -> {
 //			try {
