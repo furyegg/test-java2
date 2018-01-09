@@ -1,6 +1,7 @@
 package test.hbase;
 
 import com.google.protobuf.ServiceException;
+import one.util.streamex.StreamEx;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -15,12 +16,16 @@ import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.io.compress.Compression;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.apache.hadoop.hbase.util.Bytes.toBytes;
 
@@ -86,8 +91,16 @@ public class SaveData {
 	}
 
 	public static void main(String... args) throws Exception {
-		SaveData app = new SaveData();
-		app.run();
+//		SaveData app = new SaveData();
+//		app.run();
+
+		Random rnd = new Random();
+		List<Integer> cols = Stream.generate(() -> 0).limit(30).collect(Collectors.toList());
+		System.out.println(cols);
+		Integer[] integers = StreamEx.of(cols)
+				.map(i -> rnd.nextInt(30))
+				.toArray(new Integer[]{});
+		System.out.println(integers);
 	}
 
 	private void run() throws IOException, ServiceException {

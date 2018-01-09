@@ -8,12 +8,37 @@
     <artifactId>test-hbase</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>sonatype release</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
     <properties>
         <lombok.version>1.16.4</lombok.version>
         <javaslang.version>2.0.6</javaslang.version>
+        <springboot.version>1.5.9.RELEASE</springboot.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-common</artifactId>
@@ -44,6 +69,17 @@
             <artifactId>javaslang</artifactId>
             <version>${javaslang.version}</version>
         </dependency>
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+            <version>0.6.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sematext.hbasewd</groupId>
+            <artifactId>hbasewd</artifactId>
+            <version>0.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -56,6 +92,33 @@
                     <encoding>UTF-8</encoding>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>*.csv</exclude>
+                        <exclude>*.zip</exclude>
+                        <exclude>config.properties</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>test.hbase.PerformanceTest</mainClass>
                 </configuration>
             </plugin>
         </plugins>
