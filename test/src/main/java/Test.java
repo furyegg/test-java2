@@ -1,3 +1,4 @@
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -6,6 +7,7 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Test {
 	static class A {}
@@ -15,9 +17,8 @@ public class Test {
 	static A a;
 
     public static void main(String[] args) {
-		BigDecimal b = new BigDecimal(11.2300);
-		System.out.println(b.setScale(0, RoundingMode.CEILING));
-		URL url = Test.class.getClassLoader().getResource("org/apache");
+		Map<String, Integer> map = ImmutableMap.of("a", 1, "b", 2);
+		map.forEach((k, v) -> System.out.println(k));
 	}
 
     private static List<A> get() {
