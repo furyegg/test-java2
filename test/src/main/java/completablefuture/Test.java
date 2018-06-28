@@ -3,6 +3,8 @@ package completablefuture;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Test {
 	public static void main(String[] args) {
@@ -31,18 +33,30 @@ public class Test {
 	private static void second() {
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
 		
-		CompletableFuture
-				.runAsync(() -> {
-					System.out.println("first: " + System.currentTimeMillis());
-				}, executor)
-				.thenRunAsync(() -> System.out.println("second: " + System.currentTimeMillis()));
+		CompletableFuture<Integer> cf = new CompletableFuture<>();
 		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		final int[] count = {0};
 		
-		executor.shutdownNow();
+		ScheduledFuture<?> future = executor.scheduleAtFixedRate(
+				() -> {
+					count[0]++;
+					System.out.println("count: " + count[0]);
+					if (count[0] > 5) {
+						cf.complete(count[0]);
+					}
+				},
+				0,
+				2,
+				TimeUnit.SECONDS);
+		
+		System.out.println("start");
+		
+		cf.thenAccept(n -> {
+			System.out.println("completed with count: " + count[0]);
+			future.cancel(false);
+			executor.shutdownNow();
+		});
+		
+		System.out.println("end");
 	}
 }
