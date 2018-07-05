@@ -41,12 +41,13 @@ public class Test {
 				() -> {
 					count[0]++;
 					System.out.println("count: " + count[0]);
-					if (count[0] > 5) {
-						cf.complete(count[0]);
+					if (count[0] > 3) {
+						// cf.complete(count[0]);
+                        cf.completeExceptionally(new IllegalStateException("exceeded 3"));
 					}
 				},
 				0,
-				2,
+				1,
 				TimeUnit.SECONDS);
 		
 		System.out.println("start");
@@ -55,7 +56,13 @@ public class Test {
 			System.out.println("completed with count: " + count[0]);
 			future.cancel(false);
 			executor.shutdownNow();
-		});
+		}).exceptionally((t) -> {
+            System.out.println("error: " + t.toString());
+            future.cancel(false);
+            executor.shutdownNow();
+            return null;
+            // return 0;
+        });
 		
 		System.out.println("end");
 	}
