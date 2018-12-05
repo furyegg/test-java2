@@ -1,31 +1,28 @@
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import one.util.streamex.StreamEx;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Test {
-	static class A {}
-
-	static class B extends A {}
-
-	static A a;
-
-    public static void main(String[] args) {
-		List<String> list = Lists.newArrayList();
-		list.add(null);
     
-        boolean isNull = list.stream().anyMatch(v -> v == null);
-        System.out.println(isNull);
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+//        Pattern p = Pattern.compile("cat");
+//        Matcher m = p.matcher("one cat two cats in the yard");
+//        StringBuffer sb = new StringBuffer();
+//        while (m.find()) {
+//            m.appendReplacement(sb, "dog");
+//        }
+//        m.appendTail(sb);
+//        System.out.println(sb.toString());
     
-        System.out.println(StreamEx.of(list)
-                .map(v -> Optional.ofNullable(v))
-                .findFirst(v -> !v.isPresent()));
+        Pattern p = Pattern.compile("cat");
+        Matcher m = p.matcher("one cat two cats in the yard");
+        while (m.find()) {
+            System.out.println(m.group());
+        }
     }
 
-    private static List<A> get() {
-		List<A> l = Lists.newArrayList();
-		l.add(new B());
-		return l;
-    }
 }
