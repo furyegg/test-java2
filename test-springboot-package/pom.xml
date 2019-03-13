@@ -94,39 +94,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-				<configuration>
-					<outputDirectory>target/conf</outputDirectory>
-					<resources>
-						<resource>
-							<directory>src/main/resources</directory>
-							<filtering>true</filtering>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin>-->
-			<!--<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.1.1</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<archiveBaseDirectory>target/release</archiveBaseDirectory>
-					<descriptors>
-						<descriptor>src/assembly/assembly.xml</descriptor>
-					</descriptors>
-				</configuration>
-			</plugin>-->
 		</plugins>
 	</build>
 

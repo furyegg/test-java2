@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 public class Test {
     
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        System.out.println(String.format("%1$d, %1$d", 5));
+        Double d = Double.MAX_VALUE;
+        System.out.println(d.equals(Double.MAX_VALUE));
     }
     
 }
