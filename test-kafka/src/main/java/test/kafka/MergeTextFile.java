@@ -6,38 +6,39 @@ import one.util.streamex.StreamEx;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
-import java.util.Scanner;
 
 public class MergeTextFile {
     public static void main(String[] args) throws Exception {
         List<String> sources = Lists.newArrayList(
-                "src/main/resources/message-processor.2019-03-11/message-processor.2019-03-11.0.log",
-                "src/main/resources/message-processor.2019-03-11/message-processor.2019-03-11.1.log"
+                "src/main/resources/message-processor.2019-03-11.3.log",
+                "src/main/resources/message-processor.2019-03-17.0.log",
+                "src/main/resources/message-processor.2019-03-17.1.log"
         );
-        String target = "src/main/resources/message-processor.2019-03-11.3.log";
+        String target = "src/main/resources/message-processor.2019-03.log";
         merge(sources, target);
     }
     
     private static void merge(List<String> sources, String target) throws Exception {
-        PrintWriter targetOut = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)));
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(target));
         
         StreamEx.of(sources).forEach(src -> {
             try {
-                Scanner srcIn = new Scanner(new BufferedInputStream(new FileInputStream(src)));
-                while (srcIn.hasNextLine()) {
-                    targetOut.write(srcIn.nextLine());
+                InputStream in = new BufferedInputStream(new FileInputStream(src));
+                byte[] buffer = new byte[10240];
+                while (in.read(buffer) > 0) {
+                    out.write(buffer);
                 }
-                srcIn.close();
-            } catch (FileNotFoundException e) {
+                in.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-    
-        targetOut.flush();
-        targetOut.close();
+        
+        out.flush();
+        out.close();
     }
 }
