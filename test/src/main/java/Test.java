@@ -1,17 +1,15 @@
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
-import io.vavr.collection.Stream;
-import one.util.streamex.StreamEx;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
-
 public class Test {
     
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Double d = Double.MAX_VALUE;
-        System.out.println(d.equals(Double.MAX_VALUE));
+    public static void main(String[] args) {
+        Integer n1 = 1;
+        Integer n2 = 2;
+        swap(n1, n2);
+        System.out.println(n1 + ", " + n2);
+    }
+    
+    private static void swap(Integer n1, Integer n2) {
+        n1 = 3;
+        n2 = 4;
     }
     
 }
