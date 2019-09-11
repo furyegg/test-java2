@@ -54,8 +54,10 @@ public class ConsumerAppChannel {
                             }
                 
                             if (needRestart(message)) {
-                                stop(getChannel(), consumerTag);
-                                start();
+//                                stop(getChannel(), consumerTag);
+//                                start();
+//                                getChannel().basicReject(envelope.getDeliveryTag(), true);
+                                getChannel().basicNack(envelope.getDeliveryTag(), false, true);
                             } else {
                                 if (getChannel().isOpen()) {
                                     getChannel().basicAck(envelope.getDeliveryTag(), false);

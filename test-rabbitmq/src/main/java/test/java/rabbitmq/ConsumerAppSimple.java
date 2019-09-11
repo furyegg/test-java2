@@ -28,8 +28,8 @@ public class ConsumerAppSimple {
         
         channel.queueDeclare("test", true, false, false, null);
     
-//        consume(channel);
-        pull(channel);
+        consume(channel);
+//        pull(channel);
     }
     
     private static void pull(Channel channel) throws IOException {
