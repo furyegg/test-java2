@@ -2,8 +2,8 @@ package test.hadoop.test;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import org.junit.Ignore;
-import org.junit.Test;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
