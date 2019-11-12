@@ -1,7 +1,6 @@
 package test.java.rabbitmq;
 
 import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -16,6 +15,8 @@ public class ProducerApp {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         factory.setPort(5672);
+        factory.setUsername("defy");
+        factory.setPassword("defy#123");
     
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel(200);
