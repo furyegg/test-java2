@@ -10,13 +10,13 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<flink.version>1.7.2</flink.version>
+		<flink.version>1.9.1</flink.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-connector-kafka-0.11_2.12</artifactId>
+			<artifactId>flink-connector-kafka_2.12</artifactId>
 			<version>${flink.version}</version>
 		</dependency>
 		<dependency>
