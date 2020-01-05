@@ -1,6 +1,7 @@
 package test.java.rabbitmq;
 
 import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Address;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -20,10 +21,18 @@ public class ConsumerAppSimple {
     
     public static void main(String[] args) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        factory.setPort(5672);
+//        factory.setHost("localhost");
+//        factory.setPort(5672);
+        factory.setUsername("defy");
+        factory.setPassword("defy#123");
+    
+        Address[] addresses = new Address[]{
+                new Address("cs22", 5672),
+                new Address("cs50", 5672),
+                new Address("cs59", 5672)
+        };
         
-        Connection connection = factory.newConnection();
+        Connection connection = factory.newConnection(addresses, "time consumer");
         Channel channel = connection.createChannel();
         
         channel.queueDeclare("test", true, false, false, null);
