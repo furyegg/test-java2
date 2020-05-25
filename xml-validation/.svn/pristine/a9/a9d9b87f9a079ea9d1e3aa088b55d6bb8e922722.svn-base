@@ -1,0 +1,14 @@
+package test.xml;
+
+public abstract class Const {
+	
+	public static final String PATH_SRC = "src/main/java/";
+	public static final String PATH_XML = "d:/java/jaxp/xml/";
+
+	public static final String NSURI_XSI = "http://www.w3.org/2001/XMLSchema-instance";
+	
+	public static final String XML_XBRL = "corep_conpru_c_00.01_and_c_05.02.xbrl";
+	public static final String XSD_XBRL_LOCAL = "D:/xbrl/xsd/eu/fr/xbrl/crr/fws/corep/its-2013-02/2013-12-01/mod/corep_con.xsd";
+	public static final String XSD_XBRL_REMOTE = "http://www.eba.europa.eu/eu/fr/xbrl/crr/fws/corep/its-2013-02/2013-12-01/mod/corep_con.xsd";
+	
+}

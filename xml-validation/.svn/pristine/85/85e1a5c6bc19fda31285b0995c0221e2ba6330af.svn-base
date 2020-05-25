@@ -1,0 +1,46 @@
+package test.xml;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+
+public class JAXPValidator {
+
+	public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException {
+		Timer t = new Timer();
+		t.begin();
+		validateXbrl();
+		t.end();
+	}
+	
+	private static void validateXbrl() throws SAXException, IOException, ParserConfigurationException {
+		InputStream fis = JAXPValidator.class.getClassLoader().getResourceAsStream(Const.XML_XBRL);
+		
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		factory.setNamespaceAware(true);
+		factory.setValidating(false);
+		
+		SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+		Source [] sources = new Source[] { new StreamSource(Const.XSD_XBRL_REMOTE) };
+		Schema schema = schemaFactory.newSchema(sources);
+		factory.setSchema(schema);
+		
+		SAXParser parser = factory.newSAXParser();
+		XMLReader reader = parser.getXMLReader();
+		reader.setErrorHandler(new SimpleErrorHandler());
+		reader.parse(new InputSource(fis));
+		fis.close();
+	}
+
+}
