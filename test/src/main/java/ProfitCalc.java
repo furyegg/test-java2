@@ -1,16 +1,7 @@
-import one.util.streamex.StreamEx;
-import org.xerial.snappy.SnappyInputStream;
-import org.xerial.snappy.SnappyOutputStream;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Scanner;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
-public class Test {
+public class ProfitCalc {
     
     public static void main(String[] args) throws InterruptedException, IOException {
         double src = 100000;
