@@ -1,17 +1,24 @@
 package test.springboot.jar.metric;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class FileInfo {
     private int count;
     private long size;
+    private double sizeInG;
+    
+    public FileInfo(int count, long size) {
+        this.count = count;
+        this.size = size;
+        sizeInG = BigDecimal.valueOf(size * 1.0 / 1024 / 1024 / 1024)
+                .setScale(2, BigDecimal.ROUND_HALF_UP)
+                .doubleValue();
+    }
     
     public static FileInfo empty() {
         return new FileInfo(0, 0);
@@ -21,12 +28,6 @@ public class FileInfo {
         return new FileInfo(1, size);
     }
     
-    public double getSizeInG() {
-        return BigDecimal.valueOf(size * 1.0 / 1024 / 1024 / 1024)
-                .setScale(2, BigDecimal.ROUND_HALF_UP)
-                .doubleValue();
-    }
-    
     public FileInfo add(FileInfo other) {
         return new FileInfo(count + other.count, size + other.size);
     }
@@ -34,5 +35,6 @@ public class FileInfo {
     public void refresh(FileInfo fileInfo) {
         count = fileInfo.count;
         size = fileInfo.size;
+        sizeInG = fileInfo.sizeInG;
     }
 }

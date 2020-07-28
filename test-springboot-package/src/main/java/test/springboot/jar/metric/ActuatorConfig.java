@@ -16,20 +16,18 @@ public class ActuatorConfig {
     @Autowired
     private MeterRegistry meterRegistry;
     
-    private FileInfo fileCount = FileInfo.empty();
     private FileInfo fileSize = FileInfo.empty();
     
     @PostConstruct
     private void init() {
         log.info("ActuatorConfig post construct");
-        fileSize = meterRegistry.gauge("file.count", fileCount, f -> f.getCount());
-        fileSize = meterRegistry.gauge("file.size", fileSize, f -> f.getSize());
+        fileSize = meterRegistry.gauge("file.count", fileSize, f -> f.getCount());
+        fileSize = meterRegistry.gauge("file.size", fileSize, f -> f.getSizeInG());
     }
     
     @Scheduled(fixedRate = 3000)
     private void update() {
         FileInfo info = LocalFileStatistic.getFileInfo("/Users/lyh/Downloads/logs_kodo");
-//        fileCount.refresh(info);
         fileSize.refresh(info);
         System.out.println("refreshed file info");
     }
